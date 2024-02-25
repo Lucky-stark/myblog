@@ -5,12 +5,13 @@ import com.myblog.payload.PostDto;
 import com.myblog.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/postgre")
+@RequestMapping("/api/postgre")
 public class PostController {
     private final PostService postService;
 
@@ -22,7 +23,7 @@ public class PostController {
         PostDto post = postService.createPost(postDto);
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<PostDto> getPostById(@RequestParam long id){
         PostDto postById = postService.getPostById(id);
         return new ResponseEntity<>(postById, HttpStatus.OK);
